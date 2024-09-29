@@ -16,6 +16,8 @@
             <scope>provided</scope>
         </dependency>
 
+        <!--        jaxb dependencies-->
+
         <!--        api contains interfaces only-->
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
@@ -28,6 +30,13 @@
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
             <version>4.0.5</version>
+        </dependency>
+
+        <!--        web service dependencies-->
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+            <version>4.0.3</version>
         </dependency>
 
     </dependencies>
@@ -61,6 +70,23 @@
                 <configuration>
                     <packageName>me.siva.jaxb</packageName>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.sun.xml.ws</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-java-source-for-webservice</id>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <wsdlDirectory>${project.basedir}/src/main/wsdl</wsdlDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
