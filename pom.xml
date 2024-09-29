@@ -4,14 +4,65 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
+    <groupId>me.siva.java</groupId>
     <artifactId>simple-jaxb-code</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.34</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--        api contains interfaces only-->
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>4.0.2</version>
+        </dependency>
+
+        <!--        contains the impl classes for jaxb-->
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>4.0.5</version>
+        </dependency>
+
+    </dependencies>
 
     <properties>
         <maven.compiler.source>20</maven.compiler.source>
         <maven.compiler.target>20</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <!--                    <execution>-->
+                    <!--                        <id>generate-xsd-schemas-from-pojo</id>-->
+                    <!--                        <goals>-->
+                    <!--                            <goal>schemagen</goal>-->
+                    <!--                        </goals>-->
+                    <!--                    </execution>-->
+                    <execution>
+                        <id>generate-pojo-from-xsd</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <packageName>me.siva.jaxb</packageName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
